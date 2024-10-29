@@ -6,3 +6,11 @@ minusculas = nome.lower() # -> henrique prates cardoso
 tamanho_sem_espacos = len(nome.replace(' ', '')) # -> 21
 tamanho_primeiro_nome = len(nome.split()[0]) # -> 8
 print('Maiúsculas: {}\nMinúsculas: {}\nTamanho sem espaços: {}\nTamanho primeiro nome: {}'.format(maiusculas, minusculas, tamanho_sem_espacos, tamanho_primeiro_nome))
+
+# CORREÇÃO:
+""" nome = str(input('Digite seu nome completo: ')).strip()
+print('Analisando seu nome...')
+print('Seu nome em maisúculas é {}'.format(nome.upper()))
+print('Seu nome em minúsculas é {}'.format(nome.lower()))
+print('Seu nome tem ao todo {} letras'.format(len(nome) - nome.count(' ')))
+print('Seu primeiro nome tem {} letras'.format(nome.find(' '))) """
