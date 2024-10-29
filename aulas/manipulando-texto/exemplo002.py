@@ -1,5 +1,6 @@
 frase = 'Curso em Video Python'
 frase2 = '   MySQL   '
+frase3 = frase.split()
 
 # Frase:
 #|C|u|r|s|o| |e|m| |V|i |d |e |o |  |P |y |t |h |o |n |          ---          String armazenada em frase
@@ -27,3 +28,4 @@ print(frase2.lstrip()) # --> MySQL___
 print(frase.split()) # --> ['Curso', 'em', 'Video', 'Python']
 print(frase.split()[0]) # --> Curso
 print('-'.join(frase)) # --> C-u-r-s-o- -em- -V-i-d-e-o- -P-y-t-h-o-n
+print(frase3[3][3]) # --> h
