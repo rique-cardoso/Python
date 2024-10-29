@@ -1,4 +1,4 @@
-numero = input('Digite um número de até 4 casas: ')
+""" numero = input('Digite um número de até 4 casas: ')
 tamanho = len(numero)
 
 if tamanho == 4:
@@ -19,4 +19,13 @@ elif tamanho == 2:
 elif tamanho == 1:
     print('Unidade: {}'.format(numero))
 else:
-    print('ERRO')
+    print('ERRO') """
+
+# CORREÇÃO
+
+numero = int(input('Digite um número: '))
+unidade = numero // 1 % 10
+dezena = numero // 10 % 10
+centena = numero // 100 % 10
+milhar = numero // 1000 % 10
+print('Unidade: {}\nDezena: {}\nCentena: {}\nMilhar: {}'.format(unidade, dezena, centena, milhar))
