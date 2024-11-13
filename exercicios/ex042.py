@@ -1,4 +1,4 @@
-lado_a = int(input('Lado A: '))
+""" lado_a = int(input('Lado A: '))
 lado_b = int(input('Lado B: '))
 lado_c = int(input('Lado C: '))
 
@@ -9,5 +9,22 @@ if (lado_a < lado_b + lado_c) and (lado_b < lado_a + lado_c) and (lado_c < lado_
         print('É um triângulo isóceles.')
     else:
         print('É um triângulo escaleno.')
+else:
+    print('Não é um triângulo!') """
+
+# CORREÇÃO
+
+lado_a = int(input('Lado A: '))
+lado_b = int(input('Lado B: '))
+lado_c = int(input('Lado C: '))
+
+if (lado_a < lado_b + lado_c) and (lado_b < lado_a + lado_c) and (lado_c < lado_a + lado_b):
+    print('É um triângulo ', end='')
+    if lado_a == lado_b == lado_c:
+        print('equilátero.')
+    elif lado_a != lado_b != lado_c:
+        print('escaleno.')
+    else:
+        print('isóceles.')
 else:
     print('Não é um triângulo!')
