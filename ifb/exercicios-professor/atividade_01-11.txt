@@ -1,0 +1,32 @@
+ex001.py:
+==========
+""" Faça um algoritmo para calcular a média aritmética entre os
+valores 5.9 e 8.4 (utilize uma variável para cada valor e uma
+para o resultado) e exiba o resultado considerando 1 dígito de
+precisão. """
+valor1 = 5.9
+valor2 = 8.4
+media = (valor1 + valor2) / 2
+print('Média: {:.1f}'.format(media))
+===================================================================================
+ex002.py
+==========
+""" Um funcionário recebe R$ 800,00 de salário e receberá um
+aumento de 15,8%. Implemente um algoritmo que calcule o
+novo salário do funcionário """
+novo_salario = 800.00 + (800.00 * (15.8 / 100))
+print('Novo salário: R${:.2f}'.format(novo_salario))
+===================================================================================
+ex003.py
+==========
+""" Declare uma variável A com valor inicial 10 e uma variável B
+com valor inicial 5. Utilize atribuições e quantas variáveis
+desejar para permutar os valores de A e B. O seu programa
+deve apresentar na tela o valor de A e o valor de B (espera-se
+que estejam trocados e que contenham 5 dígitos cada). """
+a = 10
+b = 5
+auxiliar = a
+a = b
+b = auxiliar
+print('A:{:05}\nB:{:05}'.format(a, b))
