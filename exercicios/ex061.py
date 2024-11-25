@@ -1,0 +1,12 @@
+primeiro_termo = int(input('Digite o 1° Termo da P.A: '))
+razao = int(input('Digite a razão da P.A: '))
+""" for c in range(1, 11):
+    termo = primeiro_termo + ((c - 1) * razao)
+    print('{}'.format(termo), end=' → ')
+print('FIM') """
+c = 1
+while c < 11:
+    termo = primeiro_termo + ((c - 1) * razao)
+    print('{}'.format(termo), end=' → ')
+    c += 1
+print('FIM')
