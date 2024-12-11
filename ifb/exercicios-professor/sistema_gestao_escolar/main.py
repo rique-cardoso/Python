@@ -112,10 +112,10 @@ def atualizarAluno(cpf, nome=None, idade=None, curso=None, matricula=None, turma
 
     print('Dados do aluno com CPF {} atualizados com sucesso.'.format(cpf))
 
-criarTabela()
+""" criarTabela()
 inserirRegistro('Henrique Prates Cardoso', 19, 'Sistemas para Internet', 201012600055, '555.555.555.00', 'B', '61998832328', 'Rua A, Bairro B, Lote C, Casa D', '05-03-2005', 'henrique.cardoso@mail.com')
 inserirRegistro('Ana Prates Cardoso', 29, 'Sistemas para Internet', 221012600055, '222.222.222.55', 'B', '619988322428', 'Rua A, Bairro B, Lote C, Casa D', '05-08-2005', 'ana.cardoso@mail.com')
 inserirRegistro('Caroline Prates Cardoso', 14, 'Eventos', 251012600055, '777.777.777.11', 'D', '61998832329', 'Rua A, Bairro B, Lote C, Casa D', '05-03-2010', 'caroline.cardoso@mail.com')
 listarAlunos()
 deletarAluno('777.777.777.11')
-atualizarAluno('555.555.555.00', 'Henrique Prates Inácio')
+atualizarAluno('555.555.555.00', 'Henrique Prates Inácio') """
