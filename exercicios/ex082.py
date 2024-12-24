@@ -13,3 +13,7 @@ for elem in lista:
         pares.append(elem)
     else:
         impares.append(elem)
+print('='*30)
+print(f'Valores digitados: {lista}')
+print(f'Valores pares digitados: {pares}')
+print(f'Valores ímpares digitados: {impares}')
