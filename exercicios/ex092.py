@@ -7,7 +7,7 @@ ctps = int(input('CTPS (0 - Não tem): '))
 if ctps != 0:
     pessoa['ctps'] = ctps
     ano_contratacao = int(input('Ano de contratação: '))
-    pessoa['ano_aposentadoria'] = ano_contratacao + 35
+    pessoa['idade de aposentadoria'] = pessoa['idade'] + (ano_contratacao + 35) - datetime.now().year
     pessoa['salario'] = float(input('Salário: R$'))
 else:
     pessoa['ctps'] = None
