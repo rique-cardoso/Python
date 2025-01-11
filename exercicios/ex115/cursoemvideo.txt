@@ -1,0 +1,4 @@
+Henrique;20
+Ana;20
+Carol;15
+Milu;5
