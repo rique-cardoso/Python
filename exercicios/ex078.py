@@ -1,6 +1,6 @@
-lista = list()
+lista = []
 for i in range(0, 5):
-    lista.append(int(input('Digite um valor: ')))
-
-print(f'Maior valor digitado: {max(lista)}')
-print(f'Maior valor digitado: {min(lista)}')
+    element = int(input('Insira um valor: '))
+    lista.append(element)
+print(f'O maior valor digitado foi o valor {max(lista)} na posição {lista.index(max(lista))}')
+print(f'O menor valor digitado foi o valor {min(lista)} na posição {lista.index(min(lista))}')

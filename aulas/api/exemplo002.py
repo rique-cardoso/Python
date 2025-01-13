@@ -1,7 +1,7 @@
 import requests
 
 # Definição da URL da API que vou consumir
-url = "https://rickandmortyapi.com/api/character/?name=rick" # API Pública Rick and Morty
+url = "https://rickandmortyapi.com/api/character/1" # API Pública Rick and Morty
 
 # Enviando a requisição GET para a URL
 response = requests.get(url)
