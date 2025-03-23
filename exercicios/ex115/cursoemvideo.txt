@@ -1,3 +1,5 @@
 Henrique; 20
 Caroline; 15
 Ana Luíza; 20
+Milu; 5
+Dona Lúcia; 80
