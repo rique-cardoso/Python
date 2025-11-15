@@ -19,7 +19,7 @@ def sum_matrix(n: int, m: int) -> Matrix:
 #  [0, 0, 1, 0],
 #  [0, 0, 0, 1]]
 
-print(sum_matrix(3, 5))
+print(sum_matrix(5, 5))
 # [[0, 1, 2],
 #  [1, 2, 3],
 #  [2, 3, 4]]
