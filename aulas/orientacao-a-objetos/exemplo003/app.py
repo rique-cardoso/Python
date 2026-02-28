@@ -5,7 +5,7 @@ class Circle:
     def calcula_area(self):
         return self.raio * self.raio * 3.14
     
-    def retorna_riao(self):
+    def retorna_raio(self):
         return self.raio
 
 c1 = Circle()
@@ -17,5 +17,5 @@ print(c2.raio)
 print(c1.calcula_area())
 print(c2.calcula_area())
 
-c1.retorna_riao()
-c2.retorna_riao()
+c1.retorna_raio()
+c2.retorna_raio()
