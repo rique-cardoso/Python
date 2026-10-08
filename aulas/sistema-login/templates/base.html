@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block titulo %}Sistema de autenticação{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1>Sistema de autenticação</h1>
+
+        <nav>
+        <a href="/">Início</a>
+        <a href="/sobre">Sobre</a>
+        </nav>
+    </header>
+
+    <main>
+        {% block conteudo %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>Projeto de estudo com Flask</p>
+    </footer>
+</body>
+</html>
