@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>{% block titulo %}Sistema de autenticação{% endblock %}</title>
+    {% block estilos %}{% endblock %}
 </head>
 <body>
     <header>
         <h1>Sistema de autenticação</h1>
 
         <nav>
-        <a href="/">Início</a>
-        <a href="/sobre">Sobre</a>
+        <a href="{{ url_for('pagina_inicial') }}">Início</a>
+        <a href="{{ url_for('sobre') }}">Sobre</a>
         </nav>
     </header>
 
@@ -24,5 +25,6 @@
     <footer>
         <p>Projeto de estudo com Flask</p>
     </footer>
+    {% block scripts %} {% endblock %}
 </body>
 </html>
