@@ -5,26 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>{% block titulo %}Sistema de autenticação{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     {% block estilos %}{% endblock %}
 </head>
 <body>
-    <header>
-        <h1>Sistema de autenticação</h1>
+    <header class="cabecalho">
+    <div class="cabecalho-conteudo">
+        <h1 class="logo">Sistema de autenticação</h1>
 
-        <nav>
-        <a href="{{ url_for('pagina_inicial') }}">Início</a>
-        <a href="{{ url_for('sobre') }}">Sobre</a>
+        <nav class="menu">
+            <a href="{{ url_for('pagina_inicial') }}">Início</a>
+            <a href="{{ url_for('sobre') }}">Sobre</a>
         </nav>
-    </header>
+    </div>
+</header>
 
-    <main>
-        {% block conteudo %}
-        {% endblock %}
-    </main>
+<main class="conteudo">
+    {% block conteudo %}
+    {% endblock %}
+</main>
 
-    <footer>
-        <p>Projeto de estudo com Flask</p>
-    </footer>
+<footer class="rodape">
+    <p>Projeto de estudo com Flask</p>
+</footer>
     {% block scripts %} {% endblock %}
 </body>
 </html>
