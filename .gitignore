@@ -4,3 +4,5 @@ ifb/aula_django/ifb_space/pyvenv.cfg
 .venv/
 __pycache__/
 *.pyc
+instance/
+*.db
