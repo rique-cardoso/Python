@@ -38,3 +38,27 @@ def exemplo_criado():
     return "CONTEÚDO", 201 # resposta apenas para fins didáticos, normalmente é utilizada para uma ação que realmente criou alguma coisa, normalmente por POST.
 
 # 404 significa que a rota solicitada não foi encontrada. 405 significa que a rota foi encontrada, mas o método HTTP utilizado não é permitido nela.
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "GET":
+        return render_template("login.html")
+    if request.method == "POST":
+        email = request.form.get("email").strip()
+        senha = request.form.get("senha", "")
+        # Duas formas para recuperar campos do formulário:
+        # 1. email = request.form["email"] # se o campo não existir, gera KeyError
+        # 2. email = request.form.get("email") # se o campo não existir, retorna None
+        # Também podemos definir um valor-padrão:
+        # 3. email = request.form.get("email", "valor-padrão")
+        # print(request.form)
+        if not email or not senha:
+            return render_template(
+                "login.html",
+                mensagem="E-mail e senha são obrigatórios.",
+                email=email
+            ), 400
+        return render_template(
+            "login.html",
+            mensagem="Dados recebidos com sucesso!"
+        )
