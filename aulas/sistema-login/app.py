@@ -1,4 +1,12 @@
 from flask import Flask, request, render_template
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+
+# Criar db
+class Base(DeclarativeBase):
+    pass
+
+db = SQLAlchemy(model_class=Base)
 
 """
     A função render_template:
@@ -9,9 +17,27 @@ from flask import Flask, request, render_template
     4. permite que o Flask envie esse HTML ao navegador.
 
 """
-
+# Criar app
 app = Flask(__name__)
 
+# Configurar URI
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///banco.db"
+
+# Inicializar db com app
+db.init_app(app)
+
+# Definir modelos
+class Teste(db.Model):
+    __tablename__ = "testes"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    texto: Mapped[str] = mapped_column(nullable=False)
+
+# Executar create_all()
+with app.app_context():
+    db.create_all()
+
+# Declarar rotas
 @app.route("/")
 def pagina_inicial():
     return render_template(
