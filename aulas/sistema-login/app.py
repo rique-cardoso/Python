@@ -1,6 +1,8 @@
 from flask import Flask, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy import String
+from werkzeug.security import generate_password_hash, check_password_hash
 
 # Criar db
 class Base(DeclarativeBase):
@@ -27,12 +29,37 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///banco.db"
 db.init_app(app)
 
 # Definir modelos
-class Teste(db.Model):
+""" class Teste(db.Model):
     __tablename__ = "testes"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    texto: Mapped[str] = mapped_column(nullable=False)
+    texto: Mapped[str] = mapped_column(nullable=False) """
 
+class Usuario(db.Model):
+    __tablename__ = "usuarios"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+
+    email: Mapped[str] = mapped_column(
+        String(320),
+        unique=True,
+        nullable=False
+    )
+
+    senha_hash: Mapped[str] = mapped_column(
+        String(512),
+        nullable=False
+    )
+
+    def definir_senha(self, senha: str) -> None:
+        self.senha_hash = generate_password_hash(senha)
+
+    def verificar_senha(self, senha: str) -> bool:
+        return check_password_hash(self.senha_hash, senha)
+
+    def __repr__(self) -> str:
+        return f"<Usuario id={self.id} email={self.email!r}>"
+    
 # Executar create_all()
 with app.app_context():
     db.create_all()
