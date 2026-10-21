@@ -55,6 +55,9 @@ class Usuario(db.Model):
         self.senha_hash = generate_password_hash(senha)
 
     def verificar_senha(self, senha: str) -> bool:
+        if not self.senha_hash:
+            return False
+        
         return check_password_hash(self.senha_hash, senha)
 
     def __repr__(self) -> str:
