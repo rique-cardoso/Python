@@ -118,3 +118,7 @@ def login():
             "login.html",
             mensagem="Dados recebidos com sucesso!"
         )
+
+@app.route("/cadastro", methods=["GET", "POST"])
+def cadastro():
+    ...
