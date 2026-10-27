@@ -35,6 +35,7 @@ Login
             <button type="submit">Entrar</button>
         </form>
     </section>
+    <p>Ainda não possui uma conta? <a href="{{url_for('cadastro')}}">Cadastre-se</a></p>
     {% if mensagem %}
         <p class="mensagem">{{ mensagem }}</p>
     {% endif %}

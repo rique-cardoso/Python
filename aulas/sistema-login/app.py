@@ -1,8 +1,9 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy import String
 from werkzeug.security import generate_password_hash, check_password_hash
+from sqlalchemy.exc import IntegrityError
 
 # Criar db
 class Base(DeclarativeBase):
@@ -121,4 +122,70 @@ def login():
 
 @app.route("/cadastro", methods=["GET", "POST"])
 def cadastro():
-    ...
+    if request.method == "GET":
+        return render_template("cadastro.html")
+
+    email = request.form.get("email", "").strip().lower()
+    senha = request.form.get("senha", "")
+    confirmacao_senha = request.form.get("confirmacao_senha", "")
+
+    # Validação dos campos obrigatórios
+    if not email or not senha or not confirmacao_senha:
+        return render_template(
+            "cadastro.html",
+            mensagem="Preencha todos os campos.",
+            email=email
+        ), 400
+    # Validação do tamnho do e-mail
+    """Como o modelo usa String(320) é necessário validar o tamanho do e-mail antes de tentar salvar no banco, caso contrário, o SQLAlchemy vai gerar um erro de violação de restrição de tamanho."""
+    if len(email) > 320:
+        return render_template(
+            "cadastro.html",
+            mensagem="O e-mail informado é muito longo.",
+            email=email
+        ), 400
+    # Validação de senha
+    if len(senha) < 8:
+        return render_template(
+            "cadastro.html",
+            mensagem="A senha deve ter pelo menos 8 caracteres.",
+            email=email
+        ), 400
+    if len(senha) > 128:
+        return render_template(
+            "cadastro.html",
+            mensagem="A senha ultrapassa o tamanho permitido.",
+            email=email
+        ), 400
+    if senha != confirmacao_senha:
+        return render_template(
+            "cadastro.html",
+            mensagem="As senhas não conferem.",
+            email=email
+        ), 400
+    # Consulta usuario existente
+    usuario_existente = db.session.execute(
+        db.select(Usuario).where(Usuario.email == email)
+    ).scalar_one_or_none()
+    if usuario_existente is not None:
+        return render_template(
+            "cadastro.html",
+            mensagem="Já existe um usuário cadastrado com esse e-mail.",
+            email=email
+        ), 409
+    # Novo usuario
+    novo_usuario = Usuario(email=email)
+    novo_usuario.definir_senha(senha)
+    db.session.add(novo_usuario)
+    try:
+        db.session.commit()
+    except IntegrityError:
+        db.session.rollback()
+        return render_template(
+            "cadastro.html",
+            mensagem="Não foi possível criar a conta com os dados informados.",
+            email=email
+        ), 409
+
+    return redirect(url_for("login"))
+    
