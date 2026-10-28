@@ -188,4 +188,5 @@ def cadastro():
         ), 409
 
     return redirect(url_for("login"))
-    
+
+## TESTAR CRIACAO DE USUARIO

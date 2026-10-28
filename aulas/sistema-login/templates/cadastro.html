@@ -9,19 +9,21 @@ Cadastro
     {% if mensagem%}
         <p class="mensagem">{{ mensagem }}</p>
     {% endif %}
-    {{ url_for('cadastro') }}
-    <div class="campo">
-        <label for="email">E-mail</label>
-        <input type="email" id="email" name="email" value="{{ email or '' }}" required maxlength="320" autocomplete="email">
-    </div>
-    <div class="campo">
-        <label for="senha">Senha</label>
-        <input type="password" id="senha" name="senha" required autocomplete="new-password">
-    </div>
-    <div class="campo">
-        <label for="confirmacao_senha">Confirme a senha</label>
-        <input type="password" id="confirmacao_senha" name="confirmacao_senha" required autocomplete="new-password">
-    </div>
-    <button type="submit">Criar conta</button>
+    <a href="{{ url_for('login') }}">Já tem uma conta? Clique aqui para fazer login.</a>
+    <form action="{{ url_for('cadastro') }}" method="POST">
+        <div class="campo">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" value="{{ email or '' }}" required maxlength="320" autocomplete="email">
+        </div>
+        <div class="campo">
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" name="senha" required autocomplete="new-password">
+        </div>
+        <div class="campo">
+            <label for="confirmacao_senha">Confirme a senha</label>
+            <input type="password" id="confirmacao_senha" name="confirmacao_senha" required autocomplete="new-password">
+        </div>
+        <button type="submit">Criar conta</button>
+    </form>
 </section>
 {% endblock %}
