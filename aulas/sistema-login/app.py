@@ -4,6 +4,8 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy import String
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.exc import IntegrityError
+from flask_login import LoginManager, UserMixin, current_user, login_required, login_user, logout_user
+import os
 
 # Criar db
 class Base(DeclarativeBase):
@@ -22,6 +24,7 @@ db = SQLAlchemy(model_class=Base)
 """
 # Criar app
 app = Flask(__name__)
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 # Configurar URI
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///banco.db"
@@ -204,3 +207,5 @@ def cadastro():
         ), 409
 
     return redirect(url_for("login"))
+
+# 5 - Crie e inicialize o LoginManager
