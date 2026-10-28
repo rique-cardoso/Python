@@ -101,7 +101,7 @@ def login():
     if request.method == "GET":
         return render_template("login.html")
     if request.method == "POST":
-        email = request.form.get("email").strip()
+        email = request.form.get("email").strip().lower()
         senha = request.form.get("senha", "")
         # Duas formas para recuperar campos do formulário:
         # 1. email = request.form["email"] # se o campo não existir, gera KeyError
@@ -109,16 +109,32 @@ def login():
         # Também podemos definir um valor-padrão:
         # 3. email = request.form.get("email", "valor-padrão")
         # print(request.form)
+        
+        # Cmapos obrigatórios
         if not email or not senha:
             return render_template(
                 "login.html",
-                mensagem="E-mail e senha são obrigatórios.",
+                mensagem="Preencha o e-mail e a senha.",
                 email=email
             ), 400
-        return render_template(
-            "login.html",
-            mensagem="Dados recebidos com sucesso!"
-        )
+
+        # Pesquisar usuário no banco
+        usuario = db.session.execute(
+            db.select(Usuario).where(Usuario.email == email)
+        ).scalar_one_or_none()
+
+        if usuario and usuario.verificar_senha(senha):
+            return render_template(
+                "login.html",
+                mensagem="Credenciais válidas.",
+            )
+        else:
+            return render_template(
+                "login.html",
+                mensagem="Credenciais inválidas.",
+                email=email
+            ), 401
+
 
 @app.route("/cadastro", methods=["GET", "POST"])
 def cadastro():
@@ -188,5 +204,3 @@ def cadastro():
         ), 409
 
     return redirect(url_for("login"))
-
-## TESTAR CRIACAO DE USUARIO
