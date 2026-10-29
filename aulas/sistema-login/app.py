@@ -5,14 +5,17 @@ from sqlalchemy import String
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.exc import IntegrityError
 from flask_login import LoginManager, UserMixin, current_user, login_required, login_user, logout_user
+from dotenv import load_dotenv
 import os
+
+load_dotenv()
 
 # Criar db
 class Base(DeclarativeBase):
     pass
 
 db = SQLAlchemy(model_class=Base)
-
+login_manager = LoginManager()
 """
     A função render_template:
 
@@ -24,13 +27,16 @@ db = SQLAlchemy(model_class=Base)
 """
 # Criar app
 app = Flask(__name__)
-app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 # Configurar URI
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///banco.db"
 
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
+
 # Inicializar db com app
 db.init_app(app)
+login_manager.init_app(app)
+login_manager.login_view = "login"  # Nome da rota de login
 
 # Definir modelos
 """ class Teste(db.Model):
@@ -39,7 +45,7 @@ db.init_app(app)
     id: Mapped[int] = mapped_column(primary_key=True)
     texto: Mapped[str] = mapped_column(nullable=False) """
 
-class Usuario(db.Model):
+class Usuario(UserMixin, db.Model):
     __tablename__ = "usuarios"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -66,7 +72,16 @@ class Usuario(db.Model):
 
     def __repr__(self) -> str:
         return f"<Usuario id={self.id} email={self.email!r}>"
+
+@login_manager.user_loader
+def carregar_usuario(usuario_id: str):
+    try:
+        id_numerico = int(usuario_id)
+    except (TypeError, ValueError):
+        return None
     
+    return db.session.get(Usuario, int(usuario_id))
+
 # Executar create_all()
 with app.app_context():
     db.create_all()
@@ -101,6 +116,8 @@ def exemplo_criado():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for("perfil"))
     if request.method == "GET":
         return render_template("login.html")
     if request.method == "POST":
@@ -127,10 +144,8 @@ def login():
         ).scalar_one_or_none()
 
         if usuario and usuario.verificar_senha(senha):
-            return render_template(
-                "login.html",
-                mensagem="Credenciais válidas.",
-            )
+            login_user(usuario)
+            return redirect(url_for("perfil"))
         else:
             return render_template(
                 "login.html",
@@ -138,9 +153,16 @@ def login():
                 email=email
             ), 401
 
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("login"))
 
 @app.route("/cadastro", methods=["GET", "POST"])
 def cadastro():
+    if current_user.is_authenticated:
+        return redirect(url_for("perfil"))
     if request.method == "GET":
         return render_template("cadastro.html")
 
@@ -208,4 +230,10 @@ def cadastro():
 
     return redirect(url_for("login"))
 
-# 5 - Crie e inicialize o LoginManager
+@app.route("/perfil")
+@login_required
+def perfil():
+    return render_template(
+        "perfil.html",
+        usuario=current_user
+    )
